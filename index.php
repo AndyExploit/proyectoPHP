@@ -3,8 +3,7 @@
     include("includes/header.php");
 
     date_default_timezone_set("America/El_Salvador");
-
-    $fecha = date("Y-m-d H:i:s");
+    $fecha = date("Y-m-d H:i:s"); /* variable con la hora y fecha local */
 ?>
 
 <div class="container p-4">
@@ -21,15 +20,19 @@
             <div class="card card-body">
                 <form action="guardarTarea.php" method="POST">
                     <div class="form-group mb-3">
-                        <input type="text" name="titulo" class="form-control" placeholder="titulo de la tarea" autofocus>
+                        <input type="text" name="titulo" class="form-control" id="txtTitulo" placeholder="titulo de la tarea" onkeyup="verificar(this.value);" autofocus>
                     </div>
                     <div class="form-group mb-3">
                         <textarea name="Descripcion" rows="2" class="form-control" placeholder="descripcion de tarea"></textarea>
                     </div>
+                    <div class="form-group mb-3">
+                        <label class="control-label">Fecha de Nacimiento:</label>
+                        <input type="date" name="FechaNacimiento" class="form-control" value="0001-01-01" />
+                    </div>
                     <div class="form-group mb-3" style="display:none">
                         <input type="datetime" name="FechaRegistro" value="<?= $fecha ?>">
                     </div>
-                    <input type="submit" class="btn btn-success btn-block" name="guardar_tarea" value="Guardar">
+                    <input type="submit" class="btn btn-success btn-block" name="guardar_tarea" id="btnGuardar" value="Guardar">
                 </form>
             </div>
         </div>
@@ -40,6 +43,7 @@
             <tr>
                 <th>Titulo</th>
                 <th>Descripcion</th>
+                <th>FechaDeNacimiento</th>
                 <th>fecha de Registro</th>
                 <th>Acciones</th>
             </tr>
@@ -54,6 +58,7 @@
                     <tr>
                         <td><?php echo $row['Titulo'] ?></td>
                         <td><?php echo $row['Descripcion'] ?></td>
+                        <td><?php echo $row['Edad'] ?></td>
                         <td><?php echo $row['FechaRegistro'] ?></td>
                         <td>
                             <a class="" href="editarTarea.php?id=<?php echo $row['Id']?>">
@@ -76,3 +81,18 @@
 <?php 
     include("includes/footer.php");
 ?>
+
+<script>
+    var btnGuardar = document.getElementById("btnGuardar");
+    var txtTitulo = document.getElementById("txtTitulo");
+
+    btnGuardar.disabled = true;
+
+    function verificar(valor) {
+            if (txtTitulo.value.length > 0) {
+                btnGuardar.disabled = false;
+            } else {
+                btnGuardar.disabled = true;
+            }
+        }
+</script>

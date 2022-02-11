@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `Tarea`(
 	`Id` int NOT NULL auto_increment,
     `Titulo` Varchar(255),
     `Descripcion` Text,
+    `Edad` date,
     `FechaRegistro` datetime,
     PRIMARY KEY (`Id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
